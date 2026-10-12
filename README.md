@@ -1,10 +1,12 @@
 Financa Facil
-
+--------------------------------------------------------------------------------------------------------
 Site de educação financeira, Laboratório de Desenvolvimento Web (Prof.ª M.ª Suzana Sousa).
+--------------------------------------------------------------------------------------------------------
 
 Problema social escolhido
 
 Gestao de Financas para jovens
+--------------------------------------------------------------------------------------------------------
 
 Funcionalidades
 Conteúdo educativo: ganhos, gastos, juros compostos, regra 50/30/20, glossário e passo a passo para organizar o mês.
@@ -16,6 +18,7 @@ taxa mensal = (CDI ao mês / 100) x (% do CDI / 100)
 saldo       = saldo x (1 + taxa mensal) + aporte      (repetido a cada mês)
 
 Exemplo: CDI de 1% ao mês com rentabilidade de 115% do CDI resulta em 1,15% ao mês.
+--------------------------------------------------------------------------------------------------------
 
 Tecnologias
 HTML5 (estrutura semântica, tabelas, listas, iframe e formulários com validação)
@@ -30,16 +33,20 @@ financa-facil/
 └── images/
     ├── moedas.svg
     └── crescimento.svg
+--------------------------------------------------------------------------------------------------------
 
 Como executar
 Baixe ou clone a pasta financa-facil.
 Abra a pasta no VS Code (Arquivo → Abrir Pasta...)
 Recomendo: instale a extensão Live Server (Ritwick Dey), clique com o botão direito no index.html e escolha Open with Live Server.
+--------------------------------------------------------------------------------------------------------
 
 Não é necessário instalar nenhuma dependência.
 
 Este site é apenas educativo e não constitui recomendação de investimento.
+--------------------------------------------------------------------------------------------------------
 
 Autor
 
 Raphael de Almeida de Castro. 
+--------------------------------------------------------------------------------------------------------
