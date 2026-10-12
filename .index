@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aprenda a organizar gastos, ganhos e investimentos e simule juros compostos com o CDI.">
+  <title>Finança Fácil | Educação financeira para jovens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  
+  <header id="topo">
+    <div class="container barra">
+      <a href="#topo" class="logo">Finança Fácil</a>
+      <nav>
+        <ul class="menu">
+          <li><a href="#aprender">Aprender</a></li>
+          <li><a href="#orcamento">Meu orçamento</a></li>
+          <li><a href="#simulador">Simulador</a></li>
+          <li><a href="#referencias">Referências</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="container hero">
+      <div class="hero-texto">
+        <h1>Seu dinheiro não some. Ele só precisa de um plano.</h1>
+        <p>
+          A educação financeira é um problema social: muitos jovens recebem mesada ou o primeiro
+          salário sem nunca terem aprendido a controlar gastos ou a investir. Aqui você registra
+          o que ganha e o que gasta, e vê quanto o seu dinheiro pode render com
+          <abbr title="Certificado de Depósito Interbancário">CDI</abbr> e juros compostos.
+        </p>
+        <a href="#orcamento" class="botao">Começar pelo orçamento</a>
+      </div>
+      <img src="images/moedas.svg" alt="Pilhas de moedas douradas sobre fundo verde" width="320" height="240">
+    </div>
+  </header>
+
+  <main class="container">
+
+    
+    <section id="aprender">
+      <h2>Três ideias para começar</h2>
+
+      <div class="cards">
+        <article class="card">
+          <h3>Ganhos</h3>
+          <p>
+            Tudo o que entra: <strong>mesada</strong>, <strong>salário</strong>, trabalhos
+            extras e também o <em>rendimento dos investimentos</em>.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Gastos</h3>
+          <p>
+            Tudo o que sai: lanche, transporte, assinaturas, lazer. Anotar é o primeiro
+            passo para descobrir para onde o dinheiro vai.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Juros compostos</h3>
+          <p>
+            São os "juros sobre juros". A cada mês o rendimento é somado ao saldo e
+            o mês seguinte já rende em cima do valor maior.
+          </p>
+        </article>
+      </div>
+
+      <blockquote class="citacao">
+        Quem guarda um pouco todo mês chega mais longe do que quem guarda muito uma vez só.
+        <footer>— <cite>Ditado popular sobre poupança</cite></footer>
+      </blockquote>
+    </section>
+
+    
+    <div class="duas-colunas">
+      <section id="regra">
+        <h2>A regra 50 / 30 / 20</h2>
+        <p>
+          Uma forma simples de dividir o que você recebe. Ela é só um ponto de partida:
+          ajuste os percentuais à sua realidade. Segundo a regra, <q>guardar pelo menos 20%</q>
+          já cria o hábito de investir.
+        </p>
+
+        <table id="tabela-regra">
+          <caption>Divisão sugerida do dinheiro mensal</caption>
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>Percentual</th>
+              <th>Exemplos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Necessidades</td><td>50%</td><td>Transporte, alimentação, material escolar</td></tr>
+            <tr><td>Desejos</td><td>30%</td><td>Lazer, jogos, roupas, delivery</td></tr>
+            <tr><td>Futuro</td><td>20%</td><td>Reserva de emergência e investimentos</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Passo a passo para organizar o mês</h4>
+        <ol>
+          <li>Some tudo o que você recebe.</li>
+          <li>Anote todos os gastos durante o mês.</li>
+          <li>Separe primeiro a parte do futuro, depois o resto.</li>
+          <li>Reveja o resultado e ajuste no mês seguinte.</li>
+        </ol>
+      </section>
+
+      <aside id="dicas">
+        <h3>Glossário rápido</h3>
+        <ul>
+          <li><strong><abbr title="Certificado de Depósito Interbancário">CDI</abbr>:</strong> taxa de referência de muitos investimentos de renda fixa.</li>
+          <li><strong>Aporte:</strong> valor que você adiciona ao investimento todo mês.</li>
+          <li><strong>Reserva de emergência:</strong> dinheiro guardado para imprevistos.</li>
+          <li><strong>Juros compostos:</strong> rendimento calculado sobre o saldo já acumulado.</li>
+        </ul>
+        <img src="images/crescimento.svg" alt="Gráfico de barras com valores crescendo mês a mês" width="240" height="180">
+      </aside>
+    </div>
+
+   
+    <section id="orcamento">
+      <h2>Meu orçamento do mês</h2>
+      <p>Preencha os valores e veja se o mês fechou no azul ou no vermelho.</p>
+
+      <div class="painel">
+        <form id="form-orcamento">
+          <h3>Seus números</h3>
+
+          <label for="nome">Seu nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Ex.: Ana" required>
+
+          <fieldset>
+            <legend>Como você recebe?</legend>
+            <label class="inline" for="tipo-mesada">
+              <input type="radio" id="tipo-mesada" name="tipo" value="mesada" checked> Mesada
+            </label>
+            <label class="inline" for="tipo-salario">
+              <input type="radio" id="tipo-salario" name="tipo" value="salário"> Salário
+            </label>
+          </fieldset>
+
+          <label for="renda">Ganho mensal: mesada ou salário (R$)</label>
+          <input type="number" id="renda" name="renda" min="0" step="0.01" placeholder="Ex.: 500" required>
+
+          <label for="ganho-invest">Ganho com investimentos no mês (R$)</label>
+          <input type="number" id="ganho-invest" name="invest" min="0" step="0.01" placeholder="Ex.: 12.50" required>
+
+          <label for="gasto">Gasto mensal total (R$)</label>
+          <input type="number" id="gasto" name="gasto" min="0" step="0.01" placeholder="Ex.: 350" required>
+
+          <div class="botoes">
+            <button type="submit" class="botao">Calcular orçamento</button>
+            <button type="reset" class="botao secundario">Limpar</button>
+          </div>
+        </form>
+
+        <div id="resultado-orcamento" class="resultado" aria-live="polite">
+          <h3>Resultado</h3>
+          <p>Preencha o formulário para ver seu resumo aqui.</p>
+        </div>
+      </div>
+    </section>
+
+   
+    <section id="simulador">
+      <h2>Simulador de juros compostos com CDI</h2>
+      <p>
+        Informe o CDI do mês e quanto o seu investimento paga em relação a ele
+        (por exemplo, <strong>115% do CDI</strong>). O resultado mostra como o dinheiro cresce mês a mês.
+      </p>
+
+      <div class="painel">
+        <form id="form-simulador">
+          <h3>Dados da simulação</h3>
+
+          <label for="inicial">Valor inicial (R$)</label>
+          <input type="number" id="inicial" name="inicial" min="0" step="0.01" value="1000" required>
+
+          <label for="aporte">Aporte mensal (R$)</label>
+          <input type="number" id="aporte" name="aporte" min="0" step="0.01" value="100" required>
+
+          <label for="cdi">CDI ao mês (%)</label>
+          <input type="number" id="cdi" name="cdi" min="0" step="0.01" value="1" placeholder="Ex.: 1" required>
+
+          <label for="pct-cdi">Rentabilidade (% do CDI)</label>
+          <input type="number" id="pct-cdi" name="pct" min="0" step="0.01" value="115" placeholder="Ex.: 115" required>
+
+          <label for="meses">Prazo (meses)</label>
+          <input type="number" id="meses" name="meses" min="1" max="600" step="1" value="24" required>
+
+          <div class="botoes">
+            <button type="submit" class="botao">Simular</button>
+            <button type="reset" class="botao secundario">Limpar</button>
+            <button type="button" id="usar-saldo" class="botao secundario">Usar meu saldo como aporte</button>
+          </div>
+        </form>
+
+        <div id="resultado-simulacao" class="resultado" aria-live="polite">
+          <h3>Resultado</h3>
+          <p>Ajuste os valores e clique em <strong>Simular</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+   
+    <section id="referencias">
+      <h2>Para continuar estudando</h2>
+      <ul class="links">
+        <li><a href="https://www.bcb.gov.br/cidadaniafinanceira" target="_blank" rel="noopener">Cidadania financeira (Banco Central)</a></li>
+        <li><a href="https://www.investidor.gov.br" target="_blank" rel="noopener">Portal do Investidor (CVM)</a></li>
+        <li><a href="https://www.tesourodireto.com.br" target="_blank" rel="noopener">Tesouro Direto</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+ 
+  <footer>
+    <div class="container">
+      <h5>Finança Fácil</h5>
+      <h6>Projeto de Laboratório de Desenvolvimento Web: impacto social</h6>
+      <p>Este site é educativo e não constitui recomendação de investimento.</p>
+      <p id="ano"></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
