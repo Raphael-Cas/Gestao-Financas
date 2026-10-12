@@ -1,0 +1,177 @@
+
+const formatarReais = (valor) =>
+  valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+let ultimoSaldo = 0;
+
+const formOrcamento = document.getElementById('form-orcamento');
+const resultadoOrcamento = document.getElementById('resultado-orcamento');
+const formSimulador = document.getElementById('form-simulador');
+const resultadoSimulacao = document.getElementById('resultado-simulacao');
+const botaoUsarSaldo = document.getElementById('usar-saldo');
+
+
+formOrcamento.addEventListener('submit', (evento) => {
+  evento.preventDefault(); 
+
+  const nome = document.getElementById('nome').value.trim();
+  const tipoRenda = document.querySelector('input[name="tipo"]:checked').value;
+  const renda = Number(document.getElementById('renda').value);
+  const ganhoInvest = Number(document.getElementById('ganho-invest').value);
+  const gasto = Number(document.getElementById('gasto').value);
+
+
+  const receitaTotal = renda + ganhoInvest;
+  const saldo = receitaTotal - gasto;
+  const percGasto = receitaTotal > 0 ? (gasto / receitaTotal) * 100 : 0; 
+  const percGuardado = receitaTotal > 0 ? (saldo / receitaTotal) * 100 : 0;
+  const temInvestimento = ganhoInvest != 0;
+
+  ultimoSaldo = saldo;
+
+  let classe;
+  let mensagem;
+
+  if (receitaTotal === 0) {
+    classe = 'atencao';
+    mensagem = 'Você ainda não registrou nenhum ganho. Anote o que entra para o cálculo fazer sentido.';
+  } else if (saldo < 0) {
+    classe = 'ruim';
+    mensagem = `Cuidado, ${nome}! Você gastou ${formatarReais(Math.abs(saldo))} a mais do que recebeu. Corte gastos de desejos primeiro.`;
+  } else if (percGuardado >= 20 && temInvestimento) {
+    classe = 'bom';
+    mensagem = `Muito bem, ${nome}! Você guardou ${percGuardado.toFixed(1)}% e ainda tem dinheiro rendendo.`;
+  } else if (percGuardado >= 20 && !temInvestimento) {
+    classe = 'bom';
+    mensagem = `Ótimo, ${nome}! Você guarda ${percGuardado.toFixed(1)}%. Que tal investir esse saldo para ele render?`;
+  } else {
+    classe = 'atencao';
+    mensagem = `${nome}, o mês fechou positivo, mas você guardou só ${percGuardado.toFixed(1)}%. A meta da regra 50/30/20 é 20%.`;
+  }
+
+ 
+  resultadoOrcamento.innerHTML = `
+    <h3>Resumo de ${nome}</h3>
+    <p>Tipo de ganho principal: <strong>${tipoRenda}</strong></p>
+    <div class="numeros">
+      <div class="numero"><span>Ganho total</span><strong>${formatarReais(receitaTotal)}</strong></div>
+      <div class="numero"><span>Gastos</span><strong>${formatarReais(gasto)}</strong></div>
+      <div class="numero"><span>Saldo do mês</span><strong>${formatarReais(saldo)}</strong></div>
+      <div class="numero"><span>% da renda gasta</span><strong>${percGasto.toFixed(1)}%</strong></div>
+    </div>
+    <p class="mensagem ${classe}">${mensagem}</p>
+  `;
+
+  console.log(`Orçamento de ${nome}: ganhos ${receitaTotal}, gastos ${gasto}, saldo ${saldo}`);
+});
+
+
+formOrcamento.addEventListener('reset', () => {
+  ultimoSaldo = 0;
+  resultadoOrcamento.innerHTML = `
+    <h3>Resultado</h3>
+    <p>Preencha o formulário para ver seu resumo aqui.</p>
+  `;
+});
+
+
+formSimulador.addEventListener('submit', (evento) => {
+  evento.preventDefault();
+
+  const inicial = Number(document.getElementById('inicial').value);
+  const aporte = Number(document.getElementById('aporte').value);
+  const cdiMes = Number(document.getElementById('cdi').value);
+  const pctCdi = Number(document.getElementById('pct-cdi').value);
+  const meses = Math.floor(Number(document.getElementById('meses').value));
+
+  
+  if (meses < 1 || meses > 600 || inicial < 0 || aporte < 0) {
+    resultadoSimulacao.innerHTML = `
+      <h3>Resultado</h3>
+      <p class="mensagem ruim">Confira os valores: o prazo deve ficar entre 1 e 600 meses e os valores não podem ser negativos.</p>
+    `;
+    return;
+  }
+
+  
+  const taxaMensal = (cdiMes / 100) * (pctCdi / 100);
+  const taxaAnual = (Math.pow(1 + taxaMensal, 12) - 1) * 100;
+
+  let saldo = inicial;
+  const linhas = [];
+
+  
+  for (let mes = 1; mes <= meses; mes++) {
+    saldo = saldo * (1 + taxaMensal) + aporte;
+
+    
+    const mostrar = meses <= 12 || mes % 6 === 0 || mes === meses;
+
+    if (mostrar) {
+      const investido = inicial + aporte * mes;
+      linhas.push(`
+        <tr>
+          <td>${mes}</td>
+          <td>${formatarReais(investido)}</td>
+          <td>${formatarReais(saldo - investido)}</td>
+          <td>${formatarReais(saldo)}</td>
+        </tr>
+      `);
+    }
+  }
+
+  const totalInvestido = inicial + aporte * meses;
+  const rendimento = saldo - totalInvestido;
+  const percRendimento = totalInvestido > 0 ? (rendimento / totalInvestido) * 100 : 0;
+
+  const comentario =
+    rendimento <= 0
+      ? 'Sem rendimento nessa simulação. Confira o CDI e o percentual informados.'
+      : rendimento > totalInvestido
+        ? 'Os juros já renderam mais do que tudo o que você investiu. Esse é o poder dos juros compostos!'
+        : `Os juros renderam ${percRendimento.toFixed(1)}% sobre o que você investiu.`;
+
+  resultadoSimulacao.innerHTML = `
+    <h3>Resultado em ${meses} ${meses === 1 ? 'mês' : 'meses'}</h3>
+    <p>Taxa usada: <strong>${(taxaMensal * 100).toFixed(3)}% ao mês</strong>
+       (${pctCdi}% de um CDI de ${cdiMes}% ao mês), equivalente a
+       <strong>${taxaAnual.toFixed(2)}% ao ano</strong>.</p>
+    <div class="numeros">
+      <div class="numero"><span>Total investido</span><strong>${formatarReais(totalInvestido)}</strong></div>
+      <div class="numero"><span>Rendimento</span><strong>${formatarReais(rendimento)}</strong></div>
+      <div class="numero"><span>Valor final</span><strong>${formatarReais(saldo)}</strong></div>
+    </div>
+    <p class="mensagem bom">${comentario}</p>
+    <div class="tabela-rolagem">
+      <table>
+        <caption>Evolução do investimento</caption>
+        <thead>
+          <tr><th>Mês</th><th>Investido</th><th>Juros</th><th>Saldo</th></tr>
+        </thead>
+        <tbody>${linhas.join('')}</tbody>
+      </table>
+    </div>
+  `;
+
+  console.log(`Simulação: ${meses} meses a ${(taxaMensal * 100).toFixed(3)}% a.m. => ${formatarReais(saldo)}`);
+});
+
+formSimulador.addEventListener('reset', () => {
+  resultadoSimulacao.innerHTML = `
+    <h3>Resultado</h3>
+    <p>Ajuste os valores e clique em <strong>Simular</strong>.</p>
+  `;
+});
+
+botaoUsarSaldo.addEventListener('click', () => {
+  if (ultimoSaldo > 0) {
+    document.getElementById('aporte').value = ultimoSaldo.toFixed(2);
+  } else {
+    resultadoSimulacao.innerHTML = `
+      <h3>Resultado</h3>
+      <p class="mensagem atencao">Calcule primeiro um orçamento com saldo positivo para usar esse valor como aporte.</p>
+    `;
+  }
+});
+
+document.getElementById('ano').innerHTML = `&copy; ${new Date().getFullYear()} Finança Fácil`;
